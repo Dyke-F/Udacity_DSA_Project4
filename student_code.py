@@ -123,14 +123,14 @@ def shortest_path(map_x, start=None, goal=None):
             if neighbour not in seen:
                 
                 g = geodesic_dist[curr_node] + local_distance[curr_node][neighbour] # geodesic distance travelled so far + distance between curr_node and its neighbour
-                h = global_distance[neighbour] # heurisitc euclidean underestimated distance from neighbour to goal
-                f = g + h # total cost: uniform cost search (g) + greedy best first seach (h)
+                h = global_distance[neighbour]                  # heurisitc euclidean underestimated distance from neighbour to goal
+                f = g + h                                       # total cost: uniform cost search (g) + greedy best first seach (h)
                 
                 if g < geodesic_dist[neighbour]:
-                    geodesic_dist[neighbour] = g     # update geodesic distances without h (as they are recycled for the whole route)
-                                                     # otherwise h would accumulate from all previous nodes
-                    heapq.heappush(frontier, (f, neighbour)) # explore the next closest node (lowest f cost) first
-                    shortest_path[neighbour] = curr_node # every time we obtain a lower g, we update the neighbours closest node as curr_node until we reach a minimum == closest node
+                    geodesic_dist[neighbour] = g                # update geodesic distances without h (as they are recycled for the whole route)
+                                                                # otherwise h would accumulate from all previous nodes
+                    heapq.heappush(frontier, (f, neighbour))    # explore the next closest node (lowest f cost) first
+                    shortest_path[neighbour] = curr_node        # every time we obtain a lower g, we update the neighbours closest node as curr_node until we reach a minimum == closest node
                     
                 else:
                     pass
@@ -153,6 +153,5 @@ def shortest_path(map_x, start=None, goal=None):
         
     path.append(start)
     path = list(reversed(path))
-
-
+    
     return path
